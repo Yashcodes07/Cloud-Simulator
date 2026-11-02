@@ -1,0 +1,14 @@
+task_id,tenant,cpu,mem,sensitivity,sla_ms,policy,node,vm_id,latency_ms,status
+T01,tenantA,1,3,high,20,latency_first,Edge-1,VM001,6.88,SUCCESS
+T02,tenantB,1,1,low,200,latency_first,Edge-1,VM002,7.5,SUCCESS
+T03,tenantC,3,1,high,20,latency_first,Fog-1,VM003,29.69,SLA_VIOLATED
+T04,tenantA,1,1,medium,50,latency_first,Edge-1,VM004,8.75,SUCCESS
+T05,tenantB,1,1,low,200,latency_first,Edge-1,VM005,10.0,SUCCESS
+T06,tenantC,3,4,medium,50,latency_first,Fog-1,VM006,34.38,SUCCESS
+T07,tenantA,3,3,low,200,latency_first,Fog-1,VM007,39.06,SUCCESS
+T08,tenantB,1,2,high,20,latency_first,Fog-1,VM008,40.62,SLA_VIOLATED
+T09,tenantC,2,3,high,20,latency_first,Fog-1,VM009,43.75,SLA_VIOLATED
+T10,tenantA,2,1,low,200,latency_first,Fog-1,VM010,46.88,SUCCESS
+T11,tenantB,1,3,low,200,latency_first,Fog-1,VM011,48.44,SUCCESS
+T12,tenantC,3,3,high,20,latency_first,Cloud-1,VM012,104.69,SLA_VIOLATED
+T13,A,1,1,high,20,latency_first,Fog-1,VM013,50.0,SLA_VIOLATED

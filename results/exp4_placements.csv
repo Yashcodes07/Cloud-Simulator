@@ -1,0 +1,81 @@
+scenario,task_id,tenant,cpu,mem,sensitivity,sla_ms,policy,node,vm_id,latency_ms,status
+baseline,T01,tenantA,3,2,low,200,capacity_aware,Cloud-1,VM001,104.69,SUCCESS
+baseline,T02,tenantB,3,4,medium,50,capacity_aware,Fog-1,VM002,29.69,SUCCESS
+baseline,T03,tenantC,1,1,high,20,capacity_aware,Edge-1,VM003,6.25,SUCCESS
+baseline,T04,tenantA,2,3,high,20,capacity_aware,Edge-1,VM004,8.75,SUCCESS
+baseline,T05,tenantB,1,4,medium,50,capacity_aware,Fog-1,VM005,31.25,SUCCESS
+baseline,T06,tenantC,3,4,medium,50,capacity_aware,Fog-1,VM006,35.94,SUCCESS
+baseline,T07,tenantA,1,2,medium,50,capacity_aware,Fog-1,VM007,37.5,SUCCESS
+baseline,T08,tenantB,3,4,high,20,capacity_aware,-,-,,REJECTED
+baseline,T09,tenantC,3,1,high,20,capacity_aware,-,-,,REJECTED
+baseline,T10,tenantA,3,1,low,200,capacity_aware,Cloud-1,VM008,109.38,SUCCESS
+baseline,T11,tenantB,1,3,medium,50,capacity_aware,Fog-1,VM009,39.06,SUCCESS
+baseline,T12,tenantC,3,4,medium,50,capacity_aware,Fog-1,VM010,43.75,SUCCESS
+baseline,T13,tenantA,2,4,high,20,capacity_aware,-,-,,REJECTED
+baseline,T14,tenantB,3,4,high,20,capacity_aware,-,-,,REJECTED
+baseline,T15,tenantC,1,3,high,20,capacity_aware,Edge-1,VM011,10.0,SUCCESS
+baseline,T16,tenantA,1,4,low,200,capacity_aware,Cloud-1,VM012,110.94,SUCCESS
+baseline,T17,tenantB,3,4,low,200,capacity_aware,Cloud-1,VM013,115.62,SUCCESS
+baseline,T18,tenantC,2,4,high,20,capacity_aware,-,-,,REJECTED
+baseline,T19,tenantA,2,3,medium,50,capacity_aware,Fog-1,VM014,46.88,SUCCESS
+baseline,T20,tenantB,2,2,medium,50,capacity_aware,Fog-1,VM015,50.0,SUCCESS
+edge capacity x2,T01,tenantA,3,2,low,200,capacity_aware,Cloud-1,VM001,104.69,SUCCESS
+edge capacity x2,T02,tenantB,3,4,medium,50,capacity_aware,Fog-1,VM002,29.69,SUCCESS
+edge capacity x2,T03,tenantC,1,1,high,20,capacity_aware,Edge-1,VM003,5.62,SUCCESS
+edge capacity x2,T04,tenantA,2,3,high,20,capacity_aware,Edge-1,VM004,6.88,SUCCESS
+edge capacity x2,T05,tenantB,1,4,medium,50,capacity_aware,Fog-1,VM005,31.25,SUCCESS
+edge capacity x2,T06,tenantC,3,4,medium,50,capacity_aware,Fog-1,VM006,35.94,SUCCESS
+edge capacity x2,T07,tenantA,1,2,medium,50,capacity_aware,Edge-1,VM007,7.5,SUCCESS
+edge capacity x2,T08,tenantB,3,4,high,20,capacity_aware,Edge-1,VM008,9.38,SUCCESS
+edge capacity x2,T09,tenantC,3,1,high,20,capacity_aware,-,-,,REJECTED
+edge capacity x2,T10,tenantA,3,1,low,200,capacity_aware,Cloud-1,VM009,109.38,SUCCESS
+edge capacity x2,T11,tenantB,1,3,medium,50,capacity_aware,Fog-1,VM010,37.5,SUCCESS
+edge capacity x2,T12,tenantC,3,4,medium,50,capacity_aware,Fog-1,VM011,42.19,SUCCESS
+edge capacity x2,T13,tenantA,2,4,high,20,capacity_aware,-,-,,REJECTED
+edge capacity x2,T14,tenantB,3,4,high,20,capacity_aware,-,-,,REJECTED
+edge capacity x2,T15,tenantC,1,3,high,20,capacity_aware,Edge-1,VM012,10.0,SUCCESS
+edge capacity x2,T16,tenantA,1,4,low,200,capacity_aware,Cloud-1,VM013,110.94,SUCCESS
+edge capacity x2,T17,tenantB,3,4,low,200,capacity_aware,Cloud-1,VM014,115.62,SUCCESS
+edge capacity x2,T18,tenantC,2,4,high,20,capacity_aware,-,-,,REJECTED
+edge capacity x2,T19,tenantA,2,3,medium,50,capacity_aware,Fog-1,VM015,45.31,SUCCESS
+edge capacity x2,T20,tenantB,2,2,medium,50,capacity_aware,Fog-1,VM016,48.44,SUCCESS
+fog latency 25->60ms,T01,tenantA,3,2,low,200,capacity_aware,Cloud-1,VM001,104.69,SUCCESS
+fog latency 25->60ms,T02,tenantB,3,4,medium,50,capacity_aware,Edge-1,VM002,8.75,SUCCESS
+fog latency 25->60ms,T03,tenantC,1,1,high,20,capacity_aware,Edge-1,VM003,10.0,SUCCESS
+fog latency 25->60ms,T04,tenantA,2,3,high,20,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T05,tenantB,1,4,medium,50,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T06,tenantC,3,4,medium,50,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T07,tenantA,1,2,medium,50,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T08,tenantB,3,4,high,20,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T09,tenantC,3,1,high,20,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T10,tenantA,3,1,low,200,capacity_aware,Cloud-1,VM004,109.38,SUCCESS
+fog latency 25->60ms,T11,tenantB,1,3,medium,50,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T12,tenantC,3,4,medium,50,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T13,tenantA,2,4,high,20,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T14,tenantB,3,4,high,20,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T15,tenantC,1,3,high,20,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T16,tenantA,1,4,low,200,capacity_aware,Cloud-1,VM005,110.94,SUCCESS
+fog latency 25->60ms,T17,tenantB,3,4,low,200,capacity_aware,Cloud-1,VM006,115.62,SUCCESS
+fog latency 25->60ms,T18,tenantC,2,4,high,20,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T19,tenantA,2,3,medium,50,capacity_aware,-,-,,REJECTED
+fog latency 25->60ms,T20,tenantB,2,2,medium,50,capacity_aware,-,-,,REJECTED
+cloud latency 100->150ms,T01,tenantA,3,2,low,200,capacity_aware,Cloud-1,VM001,157.03,SUCCESS
+cloud latency 100->150ms,T02,tenantB,3,4,medium,50,capacity_aware,Fog-1,VM002,29.69,SUCCESS
+cloud latency 100->150ms,T03,tenantC,1,1,high,20,capacity_aware,Edge-1,VM003,6.25,SUCCESS
+cloud latency 100->150ms,T04,tenantA,2,3,high,20,capacity_aware,Edge-1,VM004,8.75,SUCCESS
+cloud latency 100->150ms,T05,tenantB,1,4,medium,50,capacity_aware,Fog-1,VM005,31.25,SUCCESS
+cloud latency 100->150ms,T06,tenantC,3,4,medium,50,capacity_aware,Fog-1,VM006,35.94,SUCCESS
+cloud latency 100->150ms,T07,tenantA,1,2,medium,50,capacity_aware,Fog-1,VM007,37.5,SUCCESS
+cloud latency 100->150ms,T08,tenantB,3,4,high,20,capacity_aware,-,-,,REJECTED
+cloud latency 100->150ms,T09,tenantC,3,1,high,20,capacity_aware,-,-,,REJECTED
+cloud latency 100->150ms,T10,tenantA,3,1,low,200,capacity_aware,Cloud-1,VM008,164.06,SUCCESS
+cloud latency 100->150ms,T11,tenantB,1,3,medium,50,capacity_aware,Fog-1,VM009,39.06,SUCCESS
+cloud latency 100->150ms,T12,tenantC,3,4,medium,50,capacity_aware,Fog-1,VM010,43.75,SUCCESS
+cloud latency 100->150ms,T13,tenantA,2,4,high,20,capacity_aware,-,-,,REJECTED
+cloud latency 100->150ms,T14,tenantB,3,4,high,20,capacity_aware,-,-,,REJECTED
+cloud latency 100->150ms,T15,tenantC,1,3,high,20,capacity_aware,Edge-1,VM011,10.0,SUCCESS
+cloud latency 100->150ms,T16,tenantA,1,4,low,200,capacity_aware,Cloud-1,VM012,166.41,SUCCESS
+cloud latency 100->150ms,T17,tenantB,3,4,low,200,capacity_aware,Cloud-1,VM013,173.44,SUCCESS
+cloud latency 100->150ms,T18,tenantC,2,4,high,20,capacity_aware,-,-,,REJECTED
+cloud latency 100->150ms,T19,tenantA,2,3,medium,50,capacity_aware,Fog-1,VM014,46.88,SUCCESS
+cloud latency 100->150ms,T20,tenantB,2,2,medium,50,capacity_aware,Fog-1,VM015,50.0,SUCCESS

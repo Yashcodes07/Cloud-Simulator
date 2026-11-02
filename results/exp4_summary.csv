@@ -1,0 +1,5 @@
+label,total_tasks,successful,sla_violated,rejected,avg_latency_ms,failed,success_rate_%,util_Edge-1_%,util_Fog-1_%,util_Cloud-1_%
+baseline,20,15,0,5,51.98,5,75.0,100.0,100.0,15.6
+edge capacity x2,20,16,0,4,46.9,4,80.0,100.0,93.8,15.6
+fog latency 25->60ms,20,6,0,14,76.56,14,30.0,100.0,0.0,15.6
+cloud latency 100->150ms,20,15,0,5,66.67,5,75.0,100.0,100.0,15.6

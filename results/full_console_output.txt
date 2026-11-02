@@ -1,0 +1,134 @@
+
+##### EXPERIMENT 1: Placement policy comparison #####
+Setup: same 12-task workload (seed 42), two policies.
+Expected: capacity_aware gets higher success rate (respects SLA); latency_first overloads Edge and violates SLA on Fog/Cloud.
+
+=== Placement decisions - latency_first ===
+task_id  tenant  cpu  mem sensitivity  sla_ms    node  latency_ms       status
+    T01 tenantA    1    3        high      20  Edge-1        6.88      SUCCESS
+    T02 tenantB    1    1         low     200  Edge-1        7.50      SUCCESS
+    T03 tenantC    3    1        high      20   Fog-1       29.69 SLA_VIOLATED
+    T04 tenantA    1    1      medium      50  Edge-1        8.75      SUCCESS
+    T05 tenantB    1    1         low     200  Edge-1       10.00      SUCCESS
+    T06 tenantC    3    4      medium      50   Fog-1       34.38      SUCCESS
+    T07 tenantA    3    3         low     200   Fog-1       39.06      SUCCESS
+    T08 tenantB    1    2        high      20   Fog-1       40.62 SLA_VIOLATED
+    T09 tenantC    2    3        high      20   Fog-1       43.75 SLA_VIOLATED
+    T10 tenantA    2    1         low     200   Fog-1       46.88      SUCCESS
+    T11 tenantB    1    3         low     200   Fog-1       48.44      SUCCESS
+    T12 tenantC    3    3        high      20 Cloud-1      104.69 SLA_VIOLATED
+
+=== Node utilization - latency_first ===
+   node  tier  cpu  ram_gb  latency_ms  used_cpu  used_ram  utilization_%
+ Edge-1  Edge    4       8           5       4.0       6.0          100.0
+  Fog-1   Fog   16      32          25      15.0      17.0           93.8
+Cloud-1 Cloud   64     256         100       3.0       3.0            4.7
+
+=== Placement decisions - capacity_aware ===
+task_id  tenant  cpu  mem sensitivity  sla_ms    node  latency_ms   status
+    T01 tenantA    1    3        high      20  Edge-1        6.88  SUCCESS
+    T02 tenantB    1    1         low     200 Cloud-1      101.56  SUCCESS
+    T03 tenantC    3    1        high      20  Edge-1       10.00  SUCCESS
+    T04 tenantA    1    1      medium      50   Fog-1       26.56  SUCCESS
+    T05 tenantB    1    1         low     200 Cloud-1      103.12  SUCCESS
+    T06 tenantC    3    4      medium      50   Fog-1       31.25  SUCCESS
+    T07 tenantA    3    3         low     200 Cloud-1      107.81  SUCCESS
+    T08 tenantB    1    2        high      20       -         NaN REJECTED
+    T09 tenantC    2    3        high      20       -         NaN REJECTED
+    T10 tenantA    2    1         low     200 Cloud-1      110.94  SUCCESS
+    T11 tenantB    1    3         low     200 Cloud-1      112.50  SUCCESS
+    T12 tenantC    3    3        high      20       -         NaN REJECTED
+
+=== Node utilization - capacity_aware ===
+   node  tier  cpu  ram_gb  latency_ms  used_cpu  used_ram  utilization_%
+ Edge-1  Edge    4       8           5       4.0       4.0          100.0
+  Fog-1   Fog   16      32          25       4.0       5.0           25.0
+Cloud-1 Cloud   64     256         100       8.0       9.0           12.5
+
+=== Experiment 1 summary ===
+         label  total_tasks  successful  sla_violated  rejected  avg_latency_ms  failed  success_rate_%  util_Edge-1_%  util_Fog-1_%  util_Cloud-1_%
+ latency_first           12           8             4         0           35.05       4            66.7          100.0          93.8             4.7
+capacity_aware           12           9             0         3           67.85       3            75.0          100.0          25.0            12.5
+
+##### EXPERIMENT 2: Overload scenario #####
+Setup: 25 heavy tasks (2-6 CPU, 3-10 GB) sent to default nodes.
+Expected: Edge fills first; tasks spill to Fog/Cloud or are rejected when no suitable node remains.
+
+=== Tasks per node - latency_first ===
+   node  tasks
+      -      5
+Cloud-1     14
+ Edge-1      2
+  Fog-1      4
+
+=== Rejected tasks - latency_first ===
+task_id  cpu  mem sensitivity
+    T19    6   10      medium
+    T22    3    8      medium
+    T23    5    9         low
+    T24    2    8         low
+    T25    4   10      medium
+
+=== Node utilization - latency_first ===
+   node  tier  cpu  ram_gb  latency_ms  used_cpu  used_ram  utilization_%
+ Edge-1  Edge    4       8           5       4.0       8.0          100.0
+  Fog-1   Fog   16      32          25      16.0      28.0          100.0
+Cloud-1 Cloud   64     256         100      64.0      80.0          100.0
+
+=== Tasks per node - capacity_aware ===
+   node  tasks
+      -     12
+Cloud-1      7
+ Edge-1      2
+  Fog-1      4
+
+=== Rejected tasks - capacity_aware ===
+task_id  cpu  mem sensitivity
+    T07    6    3        high
+    T09    2    5        high
+    T13    6    4      medium
+    T14    6    6      medium
+    T15    6    9      medium
+    T16    5   10        high
+    T17    3    5      medium
+    T18    3    4        high
+    T19    6   10      medium
+    T20    5    7        high
+    T22    3    8      medium
+    T25    4   10      medium
+
+=== Node utilization - capacity_aware ===
+   node  tier  cpu  ram_gb  latency_ms  used_cpu  used_ram  utilization_%
+ Edge-1  Edge    4       8           5       4.0       8.0          100.0
+  Fog-1   Fog   16      32          25      16.0      23.0          100.0
+Cloud-1 Cloud   64     256         100      29.0      49.0           45.3
+
+=== Experiment 2 summary ===
+         label  total_tasks  successful  sla_violated  rejected  avg_latency_ms  failed  success_rate_%  util_Edge-1_%  util_Fog-1_%  util_Cloud-1_%
+ latency_first           25           9            11         5          115.58      16            36.0          100.0         100.0           100.0
+capacity_aware           25          13             0        12           81.75      12            52.0          100.0         100.0            45.3
+
+##### EXPERIMENT 3: Unauthorized tenant access #####
+Setup: 12 tasks placed; alice (tenantA) tries to read tenantB's task and stop tenantB's VM.
+Expected: DENIED for cross-tenant; ALLOWED for own tenant and admin.
+
+=== Experiment 3 evidence ===
+ user    action          target                                                    result
+alice view_task   T02 (tenantB) DENIED (alice (tenantA) cannot view T02 owned by tenantB)
+alice view_task   T01 (tenantA)                                                   ALLOWED
+alice   stop_vm VM002 (tenantB)       DENIED (alice cannot stop VM002 (owned by tenantB))
+  bob view_task   T02 (tenantB)                                                   ALLOWED
+admin view_task   T02 (tenantB)                                                   ALLOWED
+
+##### EXPERIMENT 4: Before/after node capacity & latency change #####
+Setup: capacity_aware policy, same workload (20 tasks, seed 3). Baseline vs changed nodes.
+Expected: more Edge capacity -> more high-sensitivity tasks succeed; higher Fog latency -> medium tasks lose Fog and may be rejected.
+
+=== Experiment 4 summary ===
+                   label  total_tasks  successful  sla_violated  rejected  avg_latency_ms  failed  success_rate_%  util_Edge-1_%  util_Fog-1_%  util_Cloud-1_%
+                baseline           20          15             0         5           51.98       5            75.0          100.0         100.0            15.6
+        edge capacity x2           20          16             0         4           46.90       4            80.0          100.0          93.8            15.6
+    fog latency 25->60ms           20           6             0        14           76.56      14            30.0          100.0           0.0            15.6
+cloud latency 100->150ms           20          15             0         5           66.67       5            75.0          100.0         100.0            15.6
+
+All experiments done. CSVs and charts saved in: /mnt/user-data/outputs/arm305_simulator/results

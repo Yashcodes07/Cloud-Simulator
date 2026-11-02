@@ -1,0 +1,6 @@
+user,tenant,action,target,result
+alice,tenantA,view_task,T02,DENIED
+alice,tenantA,view_task,T01,ALLOWED
+alice,tenantA,stop_vm,VM002,DENIED
+bob,tenantB,view_task,T02,ALLOWED
+admin,,view_task,T02,ALLOWED

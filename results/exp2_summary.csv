@@ -1,0 +1,3 @@
+label,total_tasks,successful,sla_violated,rejected,avg_latency_ms,failed,success_rate_%,util_Edge-1_%,util_Fog-1_%,util_Cloud-1_%
+latency_first,25,9,11,5,115.58,16,36.0,100.0,100.0,100.0
+capacity_aware,25,13,0,12,81.75,12,52.0,100.0,100.0,45.3

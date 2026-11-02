@@ -1,0 +1,6 @@
+user,action,target,result
+alice,view_task,T02 (tenantB),DENIED (alice (tenantA) cannot view T02 owned by tenantB)
+alice,view_task,T01 (tenantA),ALLOWED
+alice,stop_vm,VM002 (tenantB),DENIED (alice cannot stop VM002 (owned by tenantB))
+bob,view_task,T02 (tenantB),ALLOWED
+admin,view_task,T02 (tenantB),ALLOWED
